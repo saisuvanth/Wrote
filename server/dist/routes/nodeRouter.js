@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const nodeController_1 = require("../controllers/nodeController");
+const user_1 = require("../middlewares/user");
+const nodeRouter = (0, express_1.Router)();
+nodeRouter.use(user_1.tokenExists);
+nodeRouter.get('/:id?', nodeController_1.getHomeNodes);
+nodeRouter.post('/:id?', nodeController_1.createOrUpdateHomeNodes);
+// nodeRouter.post('/', createHomeNodes);
+exports.default = nodeRouter;

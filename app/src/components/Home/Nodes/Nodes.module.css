@@ -1,0 +1,16 @@
+.board_wrapper {
+	height: 100%;
+}
+
+.node_img {
+	display: flex !important;
+	justify-content: center;
+	height: 60%;
+	padding-top: 0.5rem;
+}
+
+.input {
+	width: -webkit-fill-available;
+	font-size: 14px;
+	max-width: 10ch;
+}
