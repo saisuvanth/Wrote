@@ -39,6 +39,14 @@ export interface IUser {
 	node: INode;
 }
 
+export interface SignedToken {
+	token: string;
+}
+
+export interface TokenData {
+	_id: string;
+}
+
 export interface IUserMethods {
 	comparePassword(password: string): Promise<boolean>;
 	generateToken(): Promise<string>;

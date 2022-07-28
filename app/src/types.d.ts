@@ -76,4 +76,6 @@ export type IHomeState = {
 	breadcrumbs: IBreadCrumb[];
 	nodes: Array<Node>;
 	activeNav: number | false;
+	activeDragFlag: 'new' | 'update';
+	activeDragIndex: NodeEnum | number;
 }

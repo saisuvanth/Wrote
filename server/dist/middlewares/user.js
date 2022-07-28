@@ -48,6 +48,9 @@ const tokenExists = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
                     next(new AppError_1.default(401, e));
                 }
             }
+            else {
+                console.log(err);
+            }
         }
     }
     else {

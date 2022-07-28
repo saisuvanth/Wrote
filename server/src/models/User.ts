@@ -1,8 +1,8 @@
 import { Schema, model, Model, Types } from 'mongoose';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import { verify, sign } from 'jsonwebtoken';
 import validator from 'validator'
-import { IGoogleUser, ILocalUser, IUser, IUserMethods, IUserModel } from '../types';
+import { IGoogleUser, ILocalUser, IUser, IUserMethods, IUserModel, TokenData } from '../types';
 import { promisify } from 'util';
 
 const LocalUser = new Schema<ILocalUser>({
@@ -57,8 +57,8 @@ UserSchema.methods.comparePassword = async function (password) {
 
 UserSchema.methods.generateToken = async function () {
 	const user = this;
-	const token: string = jwt.sign({ _id: user._id.toHexString() }, process.env.JWT_SECRET as any, {
-		expiresIn: "1d",
+	const token: string = sign({ _id: user._id.toHexString() }, process.env.JWT_SECRET as any, {
+		expiresIn: "7d",
 	}).toString();
 	user.tokens.push(token);
 	await user.save()
@@ -83,8 +83,8 @@ UserSchema.statics.findByGoogleToken = async function (token) {
 UserSchema.statics.findByToken = async function (token: string) {
 	let payload;
 	try {
-		// payload = jwt.verify(token, process.env.JWT_SECRET as any, { complete: true });
 		console.log(payload)
+		payload = verify(token, process.env.JWT_SECRET as any) as TokenData;
 	} catch (e) {
 		throw e;
 		console.log(e);

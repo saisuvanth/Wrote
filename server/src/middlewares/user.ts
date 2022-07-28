@@ -27,6 +27,8 @@ const tokenExists = async (req: PRequest<{}, {}, {}>, res: Response, next: NextF
 						next();
 					} else next(new AppError(401, 'Please log in to access to the page'))
 				} catch (e) { next(new AppError(401, e as string)); }
+			} else {
+				console.log(err);
 			}
 		}
 	} else {

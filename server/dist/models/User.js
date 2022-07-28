@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const jsonwebtoken_1 = require("jsonwebtoken");
 const validator_1 = __importDefault(require("validator"));
 const LocalUser = new mongoose_1.Schema({
     username: {
@@ -66,8 +66,8 @@ UserSchema.methods.comparePassword = function (password) {
 UserSchema.methods.generateToken = function () {
     return __awaiter(this, void 0, void 0, function* () {
         const user = this;
-        const token = jsonwebtoken_1.default.sign({ _id: user._id.toHexString() }, process.env.JWT_SECRET, {
-            expiresIn: "1d",
+        const token = (0, jsonwebtoken_1.sign)({ _id: user._id.toHexString() }, process.env.JWT_SECRET, {
+            expiresIn: "7d",
         }).toString();
         user.tokens.push(token);
         yield user.save();
@@ -96,8 +96,8 @@ UserSchema.statics.findByToken = function (token) {
     return __awaiter(this, void 0, void 0, function* () {
         let payload;
         try {
-            // payload = jwt.verify(token, process.env.JWT_SECRET as any, { complete: true });
             console.log(payload);
+            payload = (0, jsonwebtoken_1.verify)(token, process.env.JWT_SECRET);
         }
         catch (e) {
             throw e;

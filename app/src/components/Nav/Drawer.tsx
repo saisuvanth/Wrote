@@ -29,6 +29,9 @@ const Drawer = () => {
 								}
 							}}
 						>
+							<Draggable>
+								
+							</Draggable>
 							<ListItemIcon
 								draggable
 								onDragStart={event => handleDragStart(event, 'new', item.name)}
