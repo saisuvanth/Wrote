@@ -14,10 +14,10 @@ const DB = process.env.MONGO_URI || '';
 
 const app: Express = express();
 
-app.set('trust proxy', 1);
+// app.set('trust proxy', 1);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(cors());
 app.use(cookie());
 app.use(morgan('dev'))
 
