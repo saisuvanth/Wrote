@@ -14,7 +14,7 @@ const DB = process.env.MONGO_URI || '';
 
 const app: Express = express();
 
-// app.set('trust proxy', 1);
+app.set('trust proxy', 1);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
