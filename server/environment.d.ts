@@ -4,7 +4,7 @@ declare global {
 			PORT?: string;
 			MONGO_URI: string;
 			JWT_SECRET: string;
-			FRONTEND_URL: string
+			FRONTEND_URL: string;
 		}
 	}
 }

@@ -1,1 +1,1 @@
-web: sh -c 'yarn dev node dist/index.js'
+web: sh -c 'yarn build node dist/index.js'

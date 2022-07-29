@@ -17,7 +17,7 @@ const app: Express = express();
 // app.set('trust proxy', 1);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 app.use(cookie());
 app.use(morgan('dev'))
 
