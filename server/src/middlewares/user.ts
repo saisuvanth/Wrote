@@ -5,7 +5,7 @@ import AppError from '../utils/AppError';
 
 const tokenExists = async (req: PRequest<{}, {}, {}>, res: Response, next: NextFunction) => {
 	let token = req?.cookies?.auth ? req?.cookies?.auth : req.headers?.authorization?.split(" ")[1];
-	token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmRlNzQ0OGYyZmYzMWI0YTc5ZDYxOTUiLCJpYXQiOjE2NTg3NDYyMjQsImV4cCI6MTY1ODgzMjYyNH0.UXA8fj4lzr4pNOCP7SpD_rZUkXp1b2SWD50q0E8GLhQ';
+	token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmUxMmUwM2M0OWYzY2U0OGEzMzNiYjgiLCJpYXQiOjE2NTkwNDIwNTcsImV4cCI6MTY1OTEyODQ1N30.98GIVPO3nHjQgUzz4VwJeIzdmX__Xmh_4Yb6CfgxQi0';
 	console.log(token);
 	if (token) {
 		try {
