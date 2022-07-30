@@ -9,7 +9,7 @@ const tokenExists = async (req: PRequest<{}, {}, {}>, res: Response, next: NextF
 	console.log(token);
 	if (token) {
 		try {
-			const user = await User.findByToken(req.cookies.auth);
+			const user = await User.findByToken(token);
 			if (user) {
 				if (user.local && !user.local.email_verified) {
 					next(new AppError(401, 'Please Confirm your email address'));
