@@ -4,7 +4,7 @@ import { tokenExists } from '../middlewares/user';
 
 const nodeRouter = Router();
 
-// nodeRouter.use(tokenExists);
+nodeRouter.use(tokenExists);
 
 nodeRouter.get('/:id?', getHomeNodes);
 
