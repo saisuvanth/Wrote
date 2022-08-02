@@ -11,6 +11,7 @@ const Home = () => {
 
 	return (
 		< HomeContextProvider >
+
 			{
 				loading ?
 					<LoadingScreen setLoading={setLoading} params={params} />

@@ -5,7 +5,7 @@ import HomeContext from '../utils/contexts/HomeContext';
 import loadingScreenImg from '../utils/loading.svg';
 
 interface Props {
-	params: Readonly<Params>;
+	params?: Readonly<Params>;
 	setLoading: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -14,7 +14,7 @@ const LoadingScreen: FC<Props> = ({ setLoading, params }) => {
 	const { getNodes } = useApi();
 
 	useEffect(() => {
-		const { id } = params;
+		const { id } = params ? params : { id: '' };
 		console.log(state);
 		if (id) {
 			getNodes(id).then(res => setLoading(false));

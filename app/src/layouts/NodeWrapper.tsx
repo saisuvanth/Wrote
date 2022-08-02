@@ -1,5 +1,6 @@
 import { Card } from '@mui/material';
 import { FC, MouseEventHandler, useContext } from 'react';
+import Draggable from 'react-draggable';
 import { useNavigate } from 'react-router-dom';
 import BoardNode from '../components/Home/Nodes/BoardNode';
 import LinkNode from '../components/Home/Nodes/LinkNode';
@@ -16,12 +17,15 @@ import styles from './components.module.css';
 const NodeWrapper: FC<ComponentNode> = ({ node, index }) => {
 	const { handleSaveNodesLocal } = useSave();
 	const { dispatch } = useContext(HomeContext);
-	const { handleDragStart } = useDrag();
+	const { handleDragStart, handleDrop } = useDrag();
 	const navigate = useNavigate();
 
 	const handleClick: MouseEventHandler<HTMLDivElement> = (event) => {
+		event.preventDefault();
+		event.stopPropagation();
 		const click = event.detail;
 		if (click === 1) {
+			console.log('hmm');
 			dispatch({ type: HomeActionEnum.SET_ACTIVE, payload: index });
 		} else if (click === 2) {
 			if (node.type === NodeEnum.BOARD) {
@@ -66,9 +70,16 @@ const NodeWrapper: FC<ComponentNode> = ({ node, index }) => {
 	}
 
 	return (
-		<Card className={styles.node_wrapper} sx={{ left: node.x, top: node.y }} onClick={handleClick} draggable onDragStart={event => handleDragStart(event, 'update', index)}>
-			{getNode()}
-		</Card>
+		<Draggable
+			onStart={event => handleDragStart(event, false, index)}
+			onStop={handleDrop}
+			position={{ x: node.x, y: node.y }}
+		>
+			<Card className={styles.node_wrapper}
+				onClick={handleClick}>
+				{getNode()}
+			</Card>
+		</Draggable>
 	)
 }
 

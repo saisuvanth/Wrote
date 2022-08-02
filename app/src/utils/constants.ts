@@ -5,6 +5,13 @@ import PlaylistAddCheckSharpIcon from '@mui/icons-material/PlaylistAddCheckSharp
 import AddLinkIcon from '@mui/icons-material/AddLink';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { IHomeState, INavItem } from '../types';
+import { ColorLens, IcecreamOutlined } from '@mui/icons-material';
+import FormatBoldIcon from '@mui/icons-material/FormatBold';
+import FormatItalicIcon from '@mui/icons-material/FormatItalic';
+import StrikethroughSIcon from '@mui/icons-material/StrikethroughS';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
 
 export enum NodeEnum {
 	NOTE = 'Note', TODO = 'To-Do', LINK = 'Link', LINE = 'Line', BOARD = 'Board', COLUMN = 'Column'
@@ -13,6 +20,7 @@ export enum NodeEnum {
 export enum NotifEnum {
 	INFO = 'info', ERROR = 'error', SUCCESS = 'success'
 }
+
 
 export const home: INavItem[] = [
 	{
@@ -41,6 +49,38 @@ export const home: INavItem[] = [
 	},
 ];
 
+export const noteNav = [
+	{
+		icon: FormatBoldIcon
+	},
+	{
+		icon: FormatItalicIcon
+	},
+	{
+		icon: StrikethroughSIcon
+	},
+	{
+		icon: FormatListBulletedIcon
+	},
+	{
+		icon: FormatListNumberedIcon
+	},
+	{
+		icon: FormatAlignCenterIcon
+	}
+]
+
+export const boardNav = [
+	{
+		name: 'Color',
+		icon: ColorLens
+	},
+	{
+		name: 'Icon',
+		icon: IcecreamOutlined
+	}
+]
+
 export const board = [
 	{
 		name: 'Note',
@@ -61,7 +101,7 @@ export const board = [
 ]
 
 export enum HomeActionEnum {
-	SET_BREADCRUMBS, SET_NODE, UPDATE_NODE, SET_ACTIVE, NODE_CHANGE, SET_ID, DEL_NODE
+	SET_BREADCRUMBS, SET_NODE, UPDATE_NODE, SET_ACTIVE, NODE_CHANGE, SET_ID, DEL_NODE, SET_DRAG_FLAG, SET_DRAG_INDEX
 }
 
 

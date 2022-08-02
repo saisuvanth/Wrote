@@ -1,18 +1,18 @@
-import { DragEvent, DragEventHandler, useContext } from 'react';
+import { DragEventHandler, useContext } from 'react';
 import { HomeActionEnum, NodeEnum } from '../utils/constants';
 import HomeContext from '../utils/contexts/HomeContext';
 import type { Node } from '../types';
 import { v4 as uuid } from 'uuid';
 import useApi from './useApi';
+import { DraggableEvent, DraggableEventHandler } from 'react-draggable';
 
 const useDrag = () => {
-	const { state: { nodes }, dispatch } = useContext(HomeContext);
-	const { updateNode } = useApi();
+	const { state: { nodes, newDragFlag, activeDragIndex }, dispatch } = useContext(HomeContext);
+	const { updateNode, createNode } = useApi();
 
-	const handleDragStart = (event: DragEvent<HTMLDivElement>, flag: 'new' | 'update', item_type: NodeEnum | number) => {
-		event.dataTransfer.setData('flag', flag);
-		event.dataTransfer.setData('index', item_type.toString());
-		// if (flag === 'update') event.currentTarget.style.visibility = 'hidden';
+	const handleDragStart = (event: DraggableEvent, flag: boolean, item_type: NodeEnum | number) => {
+		dispatch({ type: HomeActionEnum.SET_DRAG_FLAG, payload: flag });
+		dispatch({ type: HomeActionEnum.SET_DRAG_INDEX, payload: item_type });
 	}
 
 	const getNode = (type: NodeEnum, clientX: number, clientY: number): Node => {
@@ -35,18 +35,21 @@ const useDrag = () => {
 		event.stopPropagation();
 	}
 
-	const handleDrop: DragEventHandler<HTMLDivElement> = (event) => {
-		const { clientX, clientY } = event;
-		const flag = event.dataTransfer.getData('flag');
-		if (flag === 'new') {
-			const item_type: NodeEnum = event.dataTransfer.getData('index') as NodeEnum;
-			const node: Node = getNode(item_type, clientX, clientY);
+
+	const handleDrop: DraggableEventHandler = (event, data) => {
+		if (newDragFlag) {
+			const node: Node = getNode(activeDragIndex as NodeEnum, data.x, data.y);
 			dispatch({ type: HomeActionEnum.SET_NODE, payload: node });
+			createNode(node, nodes.length);
 		} else {
-			const index = parseInt(event.dataTransfer.getData('index'));
-			const new_node: Node = { ...nodes[index], x: clientX - 50, y: clientY - 50 };
-			dispatch({ type: HomeActionEnum.UPDATE_NODE, payload: { new_node, index } });
-			updateNode(new_node, index);
+			const index = activeDragIndex as number;
+			if (nodes[index].x === data.x && nodes[index].y === data.y) {
+
+			} else {
+				const new_node: Node = { ...nodes[index], x: data.x, y: data.y };
+				dispatch({ type: HomeActionEnum.UPDATE_NODE, payload: { new_node, index } });
+				updateNode(new_node, index);
+			}
 		}
 	}
 

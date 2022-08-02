@@ -3,6 +3,8 @@
 	height: calc(100vh - 68px);
 	margin-top: 68px;
 	margin-left: 66px;
+	background-image: url(/public/dots.png);
+	background-size: 9px 9px;
 }
 
 .canvas {

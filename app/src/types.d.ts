@@ -1,6 +1,15 @@
 import { HomeActionEnum, NodeEnum, NotifEnum } from "./utils/constants";
 import { SvgIconComponent } from '@mui/icons-material'
 
+export type IAuthContext = {
+	isLogged: boolean;
+	isLogging: boolean;
+	setLogged: Dispatch<SetStateAction<boolean>>;
+	setLogging: Dispatch<SetStateAction<boolean>>
+}
+export type MyRouteProps = {
+	redirectTo?: string;
+}
 
 export type IBreadCrumb = {
 	name: string;
@@ -63,9 +72,11 @@ export type IHomeAction = | { type: HomeActionEnum.SET_BREADCRUMBS, payload: IBr
 	| { type: HomeActionEnum.SET_NODE, payload: Node }
 	| { type: HomeActionEnum.SET_ID, payload: { index: number, new_id: string } }
 	| { type: HomeActionEnum.UPDATE_NODE, payload: IUpdateNode }
-	| { type: HomeActionEnum.SET_ACTIVE, payload: number | false }
+	| { type: HomeActionEnum.SET_ACTIVE, payload: number | boolean }
 	| { type: HomeActionEnum.NODE_CHANGE, payload: { reduce?: string, breadcrumb?: IBreadCrumb, nodes: Node[] } }
 	| { type: HomeActionEnum.DEL_NODE, payload: number }
+	| { type: HomeActionEnum.SET_DRAG_FLAG, payload: boolean }
+	| { type: HomeActionEnum.SET_DRAG_INDEX, payload: NodeEnum | number }
 
 export type ComponentNode = {
 	node: Node;
@@ -75,7 +86,7 @@ export type ComponentNode = {
 export type IHomeState = {
 	breadcrumbs: IBreadCrumb[];
 	nodes: Array<Node>;
-	activeNav: number | false;
-	activeDragFlag: 'new' | 'update';
-	activeDragIndex: NodeEnum | number;
+	activeNav: number | boolean;
+	newDragFlag?: boolean;
+	activeDragIndex?: NodeEnum | number;
 }
