@@ -5,11 +5,10 @@ import nodemailer from 'nodemailer';
 
 const setCookie = (res: Response, token: string) => {
 	res.cookie('auth', token, {
-		httpOnly: true,
 		expires: new Date(
 			Date.now() + 24 * 60 * 60 * 1000
 		),
-		secure: false,
+		secure: true,
 	});
 }
 
