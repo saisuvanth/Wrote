@@ -9,7 +9,6 @@ const setCookie = (res: Response, token: string) => {
 		expires: new Date(
 			Date.now() + 24 * 60 * 60 * 1000
 		),
-		secure: true,
 		sameSite: 'none'
 	});
 }
