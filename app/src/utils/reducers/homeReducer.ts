@@ -1,4 +1,5 @@
-import { IBreadCrumb, IHomeAction, IHomeState, IUpdateNode, Node } from "../../types";
+import { EditorState, convertFromRaw, RawDraftContentState } from "draft-js";
+import { IBreadCrumb, IHomeAction, IHomeState, INoteNode, IUpdateNode, Node } from "../../types";
 import { HomeActionEnum } from "../constants";
 
 function checkAndUpdate(nodes: Node[], { new_node, index }: IUpdateNode) {
@@ -26,6 +27,11 @@ const changeNodeId = (nodes: Node[], new_id: string, index: number) => {
 	return nodes;
 }
 
+const setNote = (nodes: Node[], { index, state }: { index: number, state: EditorState }) => {
+	(nodes[index] as INoteNode).note = state;
+	return nodes;
+}
+
 export default function homeReducer(state: IHomeState, action: IHomeAction): IHomeState {
 	switch (action.type) {
 		case HomeActionEnum.SET_BREADCRUMBS:
@@ -47,6 +53,8 @@ export default function homeReducer(state: IHomeState, action: IHomeAction): IHo
 			return { ...state, activeDragIndex: action.payload }
 		case HomeActionEnum.SET_DRAG_FLAG:
 			return { ...state, newDragFlag: action.payload }
+		case HomeActionEnum.SET_NOTE:
+			return { ...state, nodes: setNote(state.nodes, action.payload) };
 		default:
 			return state;
 	}

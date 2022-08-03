@@ -26,6 +26,9 @@ const NodeWrapper: FC<ComponentNode> = ({ node, index }) => {
 		const click = event.detail;
 		if (click === 1) {
 			console.log('hmm');
+			if (node.type === NodeEnum.NOTE) {
+
+			}
 			dispatch({ type: HomeActionEnum.SET_ACTIVE, payload: index });
 		} else if (click === 2) {
 			if (node.type === NodeEnum.BOARD) {
@@ -72,7 +75,7 @@ const NodeWrapper: FC<ComponentNode> = ({ node, index }) => {
 	return (
 		<Draggable
 			onStart={event => handleDragStart(event, false, index)}
-			onStop={handleDrop}
+			onStop={(event, data) => handleDrop(data.x, data.y)}
 			position={{ x: node.x, y: node.y }}
 		>
 			<Card className={styles.node_wrapper}

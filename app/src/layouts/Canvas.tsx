@@ -5,15 +5,14 @@ import { HomeActionEnum } from '../utils/constants';
 import HomeContext from '../utils/contexts/HomeContext';
 import styles from './components.module.css';
 import NodeWrapper from './NodeWrapper';
-// import HomeIcon from '@mui/icons-material/Home';
-// import useApi from '../hooks/useApi';
+
 
 
 const Canvas: FC<{ params: Readonly<Params> }> = ({ params }) => {
 	const { state: { nodes, breadcrumbs }, dispatch } = useContext(HomeContext);
 	const { state } = useContext(HomeContext);
 	const canvasRef = useRef<HTMLDivElement>(null);
-	const { handleDragOver } = useDrag();
+	const { handleDragOver, handleDrop } = useDrag();
 
 	useEffect(() => {
 		if (state.breadcrumbs.length !== 0 && state.nodes.length !== 0) {
@@ -29,7 +28,7 @@ const Canvas: FC<{ params: Readonly<Params> }> = ({ params }) => {
 
 	return (
 		<div className={styles.canvas_wrapper}>
-			<div className={styles.canvas} ref={canvasRef} onDragOver={handleDragOver} onClick={handleClick}>
+			<div className={styles.canvas} ref={canvasRef} onDragOver={handleDragOver} onDrop={event => handleDrop(event.pageX, event.pageY)} onClick={handleClick}>
 				{nodes?.map((node, index) =>
 					<NodeWrapper key={index} node={node} index={index} />
 				)}

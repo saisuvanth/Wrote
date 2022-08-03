@@ -1,8 +1,10 @@
+import { Box, CssBaseline } from '@mui/material';
 import React, { Fragment, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import Drawer from '../components/Nav/Drawer';
+import Navbar from '../components/Nav/Navbar';
 import Canvas from '../layouts/Canvas'
 import LoadingScreen from '../layouts/LoadingScreen';
-import Nav from '../layouts/Nav'
 import { HomeContextProvider } from '../utils/contexts/HomeContext'
 
 const Home = () => {
@@ -17,8 +19,11 @@ const Home = () => {
 					<LoadingScreen setLoading={setLoading} params={params} />
 					:
 					<Fragment>
-
-						<Nav />
+						<Box sx={{ display: 'flex' }}>
+							<CssBaseline />
+							<Navbar />
+						</Box>
+						<Drawer />
 						<Canvas params={params} />
 					</Fragment>
 			}

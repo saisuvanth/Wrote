@@ -1,5 +1,6 @@
 import { HomeActionEnum, NodeEnum, NotifEnum } from "./utils/constants";
 import { SvgIconComponent } from '@mui/icons-material'
+import { EditorState } from "draft-js";
 
 export type IAuthContext = {
 	isLogged: boolean;
@@ -44,7 +45,7 @@ export interface ITodoNode extends BaseNode {
 }
 
 export interface INoteNode extends BaseNode {
-	note?: string;
+	note?: EditorState;
 }
 
 export interface ILinkNode extends BaseNode {
@@ -77,6 +78,7 @@ export type IHomeAction = | { type: HomeActionEnum.SET_BREADCRUMBS, payload: IBr
 	| { type: HomeActionEnum.DEL_NODE, payload: number }
 	| { type: HomeActionEnum.SET_DRAG_FLAG, payload: boolean }
 	| { type: HomeActionEnum.SET_DRAG_INDEX, payload: NodeEnum | number }
+	| { type: HomeActionEnum.SET_NOTE, payload: { state: EditorState, index: number } }
 
 export type ComponentNode = {
 	node: Node;
@@ -89,4 +91,10 @@ export type IHomeState = {
 	activeNav: number | boolean;
 	newDragFlag?: boolean;
 	activeDragIndex?: NodeEnum | number;
+	curEditorState?: EditorState
 }
+
+// export type INoteState = {
+// 	_id: string;
+// 	editorState: EditorState
+// }

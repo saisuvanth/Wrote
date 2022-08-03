@@ -77,7 +77,7 @@ const Drawer = () => {
 								className={styles.drawer_item}
 								sx={{
 									minWidth: 0,
-									justifyContent: 'center',
+									// justifyContent: 'center',
 								}}
 							>
 								{<item.icon />}
@@ -103,8 +103,8 @@ const Drawer = () => {
 
 	const getTransform = () => {
 		if (activeNav)
-			return 'translate3d(80px,0px,0px,0px);';
-		else return 'translate3d(0px,0px,0px,0px);'
+			return 'translate3d(80px,0px,0px,0px)';
+		else return 'translate3d(0px,0px,0px,0px)'
 	}
 
 	return (
