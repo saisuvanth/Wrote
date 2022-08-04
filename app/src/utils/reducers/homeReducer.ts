@@ -43,7 +43,6 @@ export default function homeReducer(state: IHomeState, action: IHomeAction): IHo
 		case HomeActionEnum.UPDATE_NODE:
 			return { ...state, nodes: checkAndUpdate(state.nodes, action.payload) };
 		case HomeActionEnum.SET_ACTIVE:
-			console.log(action.payload);
 			return { ...state, activeNav: action.payload };
 		case HomeActionEnum.NODE_CHANGE:
 			return { ...state, breadcrumbs: getBreadCrumbs(state.breadcrumbs, action.payload?.breadcrumb, action.payload?.reduce), nodes: action.payload.nodes }

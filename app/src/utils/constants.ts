@@ -5,7 +5,7 @@ import PlaylistAddCheckSharpIcon from '@mui/icons-material/PlaylistAddCheckSharp
 import AddLinkIcon from '@mui/icons-material/AddLink';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { IHomeState, INavItem } from '../types';
-import { ColorLens, IcecreamOutlined } from '@mui/icons-material';
+import { ColorLens, FormatUnderlined, IcecreamOutlined } from '@mui/icons-material';
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import StrikethroughSIcon from '@mui/icons-material/StrikethroughS';
@@ -51,21 +51,31 @@ export const home: INavItem[] = [
 
 export const noteNav = [
 	{
+		name: 'BOLD',
 		icon: FormatBoldIcon
 	},
 	{
+		name: 'ITALIC',
 		icon: FormatItalicIcon
 	},
 	{
+		name: 'STRIKETHROUGH',
 		icon: StrikethroughSIcon
 	},
 	{
+		name: 'UNDERLINE',
+		icon: FormatUnderlined
+	},
+	{
+		name: '',
 		icon: FormatListBulletedIcon
 	},
 	{
+		name: '',
 		icon: FormatListNumberedIcon
 	},
 	{
+		name: '',
 		icon: FormatAlignCenterIcon
 	}
 ]

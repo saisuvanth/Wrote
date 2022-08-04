@@ -1,7 +1,8 @@
 import { Card } from '@mui/material';
-import { FC, MouseEventHandler, useContext } from 'react';
+import { FC, MouseEventHandler, useContext, Fragment } from 'react';
 import Draggable from 'react-draggable';
 import { useNavigate } from 'react-router-dom';
+import ArrowWrapper from '../components/Home/ArrowWrapper';
 import BoardNode from '../components/Home/Nodes/BoardNode';
 import LinkNode from '../components/Home/Nodes/LinkNode';
 import NoteNode from '../components/Home/Nodes/NoteNode';
@@ -16,11 +17,19 @@ import styles from './components.module.css';
 
 const NodeWrapper: FC<ComponentNode> = ({ node, index }) => {
 	const { handleSaveNodesLocal } = useSave();
-	const { dispatch } = useContext(HomeContext);
+	const { state: { activeNav }, dispatch } = useContext(HomeContext);
 	const { handleDragStart, handleDrop } = useDrag();
 	const navigate = useNavigate();
 
+	// const [] = useDrag(() => ({
+	// 	type: NodeEnum,
+	// 	collect: (monitor) => ({
+	// 		isDragging: !!monitor.isDragging()
+	// 	})
+	// }))
+
 	const handleClick: MouseEventHandler<HTMLDivElement> = (event) => {
+		console.log(event);
 		event.preventDefault();
 		event.stopPropagation();
 		const click = event.detail;
@@ -78,9 +87,14 @@ const NodeWrapper: FC<ComponentNode> = ({ node, index }) => {
 			onStop={(event, data) => handleDrop(data.x, data.y)}
 			position={{ x: node.x, y: node.y }}
 		>
+
 			<Card className={styles.node_wrapper}
 				onClick={handleClick}>
 				{getNode()}
+				{
+					activeNav === index ?
+						<ArrowWrapper /> : null
+				}
 			</Card>
 		</Draggable>
 	)

@@ -5,11 +5,19 @@ import HomeContext from '../../utils/contexts/HomeContext'
 import { NavBackButton, NavItemButton } from './styles'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import useDraftNote from '../../hooks/useDraftNote'
+import { INoteNode } from '../../types'
+import { DraftInlineStyle } from 'draft-js'
 
 
 const NoteNav = () => {
 	const { state: { nodes, activeNav }, dispatch } = useContext(HomeContext);
 	const { handleBoldToggle, handleItalicToggle, handleStrikeToggle, handleUnderlineToggle } = useDraftNote();
+	let inlineStyles: DraftInlineStyle;
+
+	if (activeNav) {
+		inlineStyles = (nodes[activeNav as number] as INoteNode)?.note?.getCurrentInlineStyle() as DraftInlineStyle;
+	}
+
 
 	const arr = [handleBoldToggle, handleItalicToggle, handleStrikeToggle, handleUnderlineToggle]
 	return (
@@ -27,20 +35,23 @@ const NoteNav = () => {
 				</NavBackButton>
 			</ListItem>
 			<Divider />
-			{noteNav.map((item, index) => (
-				<ListItem sx={{ display: 'block', pb: 0, pt: 0 }} key={index}>
+			{noteNav.map((item, index) => {
+				return < ListItem sx={{ display: 'block', pb: 0, pt: 0 }} key={index}>
 					<NavItemButton disableTouchRipple onMouseDown={arr[index]}>
 						<ListItemIcon
 							sx={{
 								minWidth: 0,
 								justifyContent: 'center',
+								color: inlineStyles.has(item.name) ? 'green' : 'inherit'
 							}}>
-							{<item.icon />}
+							{<item.icon style={{ color: inlineStyles.has(item.name) ? 'green' : 'inherit' }} />}
 						</ListItemIcon>
 					</NavItemButton>
 				</ListItem>
-			))}
-		</Fragment>
+			}
+			)
+			}
+		</Fragment >
 	)
 }
 

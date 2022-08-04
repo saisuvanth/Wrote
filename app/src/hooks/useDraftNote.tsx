@@ -29,7 +29,7 @@ const useDraftNote = () => {
 	const handleUnderlineToggle: MouseEventHandler<HTMLDivElement> = (event) => {
 		event.preventDefault()
 		if (activeNav) {
-			const temp = RichUtils.toggleInlineStyle((nodes[activeNav as number] as INoteNode).note as EditorState, 'UNDELINE');
+			const temp = RichUtils.toggleInlineStyle((nodes[activeNav as number] as INoteNode).note as EditorState, 'UNDERLINE');
 			console.log(temp)
 			dispatch({ type: HomeActionEnum.SET_NOTE, payload: { index: activeNav as number, state: temp } })
 		}

@@ -91,7 +91,7 @@ const Drawer = () => {
 		}
 	}
 	const getNav = () => {
-		if (!activeNav)
+		if (activeNav === false)
 			return getDefaultNav();
 		switch (nodes[activeNav as number].type) {
 			case NodeEnum.BOARD:

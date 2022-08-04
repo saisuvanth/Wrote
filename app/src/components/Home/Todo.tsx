@@ -19,8 +19,10 @@ const TodoItem: FC<ITodo> = ({ todo, index, todoIndex, node }) => {
 
 
 	const handleToggle = (event: ChangeEvent<HTMLInputElement>) => {
+		event.preventDefault();
 		const flag = event.target.checked;
 		setChecked(flag);
+		console.log(flag);
 		const todos = node.todos;
 		if (todos && todoIndex) {
 			todos[todoIndex].completed = flag;

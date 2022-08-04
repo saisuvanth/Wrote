@@ -32,7 +32,6 @@ const useDrag = () => {
 
 	}
 	const handleDragOver: DragEventHandler<HTMLDivElement | HTMLLIElement> = (event) => {
-		console.log(event);
 		event.preventDefault();
 		event.stopPropagation();
 	}
